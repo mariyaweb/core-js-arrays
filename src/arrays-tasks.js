@@ -539,15 +539,19 @@ function findLongestIncreasingSubsequence(nums) {
   const resArr = [];
   let sum = 1;
 
-  nums.reduce((prev, item, index, arr) => {
-    if (item < arr[index + 1]) {
+  nums.reduce((prev, item, index) => {
+    if (prev < item) {
       sum += 1;
+      if (index === nums.length - 1) {
+        resArr.push(sum);
+      }
     } else {
       resArr.push(sum);
       sum = 1;
     }
-    return prev;
+    return item;
   });
+
   return +resArr.sort((a, b) => b - a).slice(0, 1);
 }
 
